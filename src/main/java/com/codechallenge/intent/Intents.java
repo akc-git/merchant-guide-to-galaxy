@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import org.reflections.Reflections;
 
 import com.codechallenge.intent.api.IntentHandler;
-import com.codechallenge.intent.termtype.TermMatcher;
 
 public class Intents {
   
@@ -38,11 +37,10 @@ public class Intents {
   
   public static void loadIntents(List<Intent> intentsToLoad) {
     intents = intentsToLoad;
-    scanHandlers();
   }
 
   @SuppressWarnings("unchecked")
-  private static void scanHandlers() {
+  public static void scanHandlers() {
     
     handlers = new HashMap<>();
     Reflections reflections = new Reflections("com.codechallenge");

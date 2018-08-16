@@ -2,7 +2,7 @@
 	"intents":[
 		{
 			"name":"XYZ",
-			"nature":"STATEMENT",
+			"nature":"INVALID NATURE",
 			"terms":[
 				{
 					"name":"alien-symbol",
@@ -26,7 +26,8 @@
 				"{roman-symbol} is equivalent to {alien-symbol}",
 				"{roman-symbol} is same as {alien-symbol}",
 				"{roman-symbol} means {alien-symbol}"
-			]				
+			]
+		
 		}	
 	]
 }

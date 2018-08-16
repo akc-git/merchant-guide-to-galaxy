@@ -94,6 +94,7 @@ public class MerchantGuide {
     Reader reader = new InputStreamReader(inputStream);
     
     IntentDefinitionLoader.load(reader);
+    Intents.scanHandlers();
     TermType.scanMatchers();
     
   }  

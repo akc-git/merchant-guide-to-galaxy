@@ -1,0 +1,21 @@
+{
+	"intents":[
+		{
+			"name":"XYZ",
+			"nature":"STATEMENT",
+			"terms":[
+				{
+					"name":"alien-symbol",
+					"type":"ALIEN_NUMERIC_SYMBOL"
+				},
+				{
+					"name":"roman-symbol",
+					"type":"ROMAN_NUMERIC_SYMBOL"
+				}
+			],
+			"expressions":{
+			}
+		
+		}	
+	]
+}

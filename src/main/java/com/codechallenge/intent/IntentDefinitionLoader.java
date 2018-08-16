@@ -41,11 +41,12 @@ public class IntentDefinitionLoader {
     try {
       
       JsonReader jsonReader = Json.createReader(reader);
-      JsonObject rootObject = jsonReader.read().asJsonObject();
-      if(!rootObject.containsKey("intents"))
-        throw new IllegalDefinitionFormat();
-
-      JsonArray intentsJson = rootObject.get("intents").asJsonArray();
+      JsonObject rootObject = jsonReader.read().asJsonObject();      
+      
+      JsonArray intentsJson = Optional.ofNullable(rootObject.getJsonArray("intents"))
+                                      .orElseThrow(()-> new IllegalDefinitionFormat("property \"intents\""
+                                          + " missing in the root object"));
+                  
       intentsJson.forEach(intent->{
         if(intent.getValueType() != JsonValue.ValueType.OBJECT)
           throw new IllegalDefinitionFormat();
@@ -59,7 +60,7 @@ public class IntentDefinitionLoader {
       
     }catch (Exception e) {
       abort();
-      throw e;
+      throw new IllegalDefinitionFormat(e);
     }
     
   }
@@ -101,18 +102,28 @@ public class IntentDefinitionLoader {
     List<Term> terms = null;
     if(intentJson.containsKey("terms")) {
 
-      array = Optional.ofNullable(intentJson.getJsonArray("terms"))
-                      .orElseThrow(() -> new IllegalDefinitionFormat(
-                          "Optional property \"terms\" is expected to be an ARRAY"));
+      try {
+        array = intentJson.getJsonArray("terms");
+      }catch(ClassCastException e) {
+        throw new IllegalDefinitionFormat("\"terms\" is expected to be an array"); 
+      }
 
       terms = parseTerms(array);
     }
     
     
-    array = Optional.ofNullable(intentJson.getJsonArray("expressions"))
-                    .orElseThrow(()-> new IllegalDefinitionFormat("Mandatory property "
-                        + "\"expressions\" of type ARRAY for intent"));
-
+    try {
+        array = Optional.ofNullable(intentJson.getJsonArray("expressions"))
+                        .orElseThrow(()-> new IllegalDefinitionFormat("Mandatory property "
+                            + "\"expressions\" of type ARRAY missing for intent"));
+    }catch(ClassCastException e) {
+      throw new IllegalDefinitionFormat("\"expressions\" is expected to be an array"); 
+    }
+    
+    if(array.isEmpty())
+      throw new IllegalDefinitionFormat("At least one expression for intent is expected");
+    
+        
     Intent intent = Intent.newIntent()
                           .withName(name)
                           .ofNature(nature)

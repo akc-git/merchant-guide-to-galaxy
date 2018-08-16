@@ -14,7 +14,7 @@
 				}
 			],
 			"expressions":[
-				"{alien-symbol} is {roman-symbol}",
+				"{alien-symbol} is {some-symbol}",
 				"{alien-symbol} equals {roman-symbol}",
 				"{alien-symbol} is euqual to {roman-symbol}",
 				"{alien-symbol} is equivalent to {roman-symbol}",
