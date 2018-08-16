@@ -1,0 +1,96 @@
+{
+	"intents":[
+		{
+			"name":"LearnAndAssociateAlienSymbol",
+			"nature":"STATEMENT",
+			"terms":[
+				{
+					"name":"alien-symbol",
+					"type":"WORD"
+				},
+				{
+					"name":"roman-symbol",
+					"type":"WORD"
+				}
+			],
+			"expressions":[
+				"{alien-symbol} is {roman-symbol}",
+				"{alien-symbol} equals {roman-symbol}",
+				"{alien-symbol} is euqual to {roman-symbol}",
+				"{alien-symbol} is equivalent to {roman-symbol}",
+				"{alien-symbol} is same as {roman-symbol}",
+				"{alien-symbol} means {roman-symbol}",
+				"{roman-symbol} is {alien-symbol}",
+				"{roman-symbol} equals {alien-symbol}",
+				"{roman-symbol} is euqual to {alien-symbol}",
+				"{roman-symbol} is equivalent to {alien-symbol}",
+				"{roman-symbol} is same as {alien-symbol}",
+				"{roman-symbol} means {alien-symbol}"
+			]
+		
+		},
+		{
+			"name":"LearnUnitsAndConversions",
+			"nature":"STATEMENT",
+			"terms": [
+				{
+					"name":"unit1",
+					"type":"WORD"
+				},
+				{
+					"name":"qty-of-unit1",
+					"type":"ALIEN_NUMERAL"
+				},
+				{
+					"name":"unit2",
+					"type":"WORD"
+				},
+				{
+					"name":"qty-of-unit2",
+					"type":"DECIMAL_NUMERAL"
+				}
+			],
+			"expressions":[
+				"{qty-of-unit1}{unit1} is {qty-of-unit2}{unit2}",
+				"{qty-of-unit2}{unit2} is {qty-of-unit1}{unit1}"
+			]			
+		},
+		{
+			"name":"QueryNumberValue",
+			"nature":"QUESTION",
+			"terms":[
+				{
+					"name":"alien-numeral",
+					"type":"ALIEN_NUMERAL"
+				}
+			],
+			"expressions":[
+				"how much is {alien-numeral}",
+				"what is the value of {alien-numeral}"
+			]
+		},
+		{
+			"name":"QueryConversionToCredits",
+			"nature":"QUESTION",
+			"terms":[
+				{
+					"name":"qty",
+					"type":"ALIEN_NUMERAL"					
+				},				
+				{
+					"name":"from-unit",
+					"type":"UNIT"
+				},
+				{
+					"name":"to-unit",
+					"type":"UNIT"
+				}
+			],
+			"expressions":[
+				"how many {to-unit} is {qty}{from-unit}",
+				"how many {to-unit} does {qty}{from-unit} amount to",
+				"what is the value of {qty}{from-unit} in {to-unit}"
+			]
+		}	
+	]
+}

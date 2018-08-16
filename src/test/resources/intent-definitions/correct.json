@@ -1,0 +1,33 @@
+{
+	"intents":[
+		{
+			"name":"XYZ",
+			"nature":"STATEMENT",
+			"terms":[
+				{
+					"name":"alien-symbol",
+					"type":"ALIEN_NUMERIC_SYMBOL"
+				},
+				{
+					"name":"roman-symbol",
+					"type":"ROMAN_NUMERIC_SYMBOL"
+				}
+			],
+			"expressions":[
+				"{alien-symbol} is {roman-symbol}",
+				"{alien-symbol} equals {roman-symbol}",
+				"{alien-symbol} is euqual to {roman-symbol}",
+				"{alien-symbol} is equivalent to {roman-symbol}",
+				"{alien-symbol} is same as {roman-symbol}",
+				"{alien-symbol} means {roman-symbol}",
+				"{roman-symbol} is {alien-symbol}",
+				"{roman-symbol} equals {alien-symbol}",
+				"{roman-symbol} is euqual to {alien-symbol}",
+				"{roman-symbol} is equivalent to {alien-symbol}",
+				"{roman-symbol} is same as {alien-symbol}",
+				"{roman-symbol} means {alien-symbol}"
+			]
+		
+		}	
+	]
+}
