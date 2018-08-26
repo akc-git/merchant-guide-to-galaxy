@@ -48,7 +48,7 @@ public class AlienNumber {
             "\""+alienSymbol+"\" is not a single word");
      
      if((identifiedRomanSymbol = symbols.get(alienSymbol)) != null) {
-       if(identifiedRomanSymbol.toString() != romanSymbol)
+       if(!identifiedRomanSymbol.toString().equals(romanSymbol))
          throw new IllegalArgumentException(
              "\""+anAlienSymbol+"\" is already mapped to "+identifiedRomanSymbol.toString());
        else return false; //Already mapping exists
@@ -95,9 +95,9 @@ public class AlienNumber {
     
     for(RomanNumber.Digit digit : digits) {
       Optional<String> alienSymbol = symbolFor(digit);
-      if(alienSymbol.isPresent())
+      if(!alienSymbol.isPresent())
         throw new IllegalArgumentException(digit.name() + "is not mapped to any alien symbol");
-      numeral = String.join(" ", numeral,alienSymbol.get());      
+      numeral = numeral.isEmpty() ? alienSymbol.get() : String.join(" ", numeral,alienSymbol.get()); 
     }
     return numeral;      
   }  
