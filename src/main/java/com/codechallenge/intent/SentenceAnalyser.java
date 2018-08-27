@@ -24,6 +24,8 @@ public class SentenceAnalyser {
 
     matchPhrasesIn(expression);
     matchTermsIn(expression);
+    
+    analysis.complete();
   }
   
   public ExpressionMatchAnalysis getMatchAnalysis() {

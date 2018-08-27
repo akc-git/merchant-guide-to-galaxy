@@ -10,6 +10,8 @@ public class ExpressionMatchAnalysis {
   private Expression expression;
   private List<SegmentAnalysis> segments;
   private List<ExpressionPart> missingParts;
+  private int unmatchedLength;
+  private int matchedLength;
 
   public ExpressionMatchAnalysis(Sentence sentence,Expression expression) {
     this.expression   = expression;
@@ -67,6 +69,23 @@ public class ExpressionMatchAnalysis {
   public List<ExpressionPart> missingParts(){
     return this.missingParts;
   }
+  
+  public int matchedLength() {
+    return matchedLength;
+  }
+  
+  public int unmatchedLength() {
+    return unmatchedLength;
+  }
+  
+  public boolean matchesExactly() {     
+    return missingParts.isEmpty() && 
+           !containsUnmatchedSegments();
+  }
+  
+  public boolean containsUnmatchedSegments() {
+    return unmatchedLength > 0;
+  }  
 
   public SegmentAnalysis ofFirstUnmatched() {
     return segments.stream()
@@ -129,13 +148,16 @@ public class ExpressionMatchAnalysis {
                     .collect(Collectors.toList());
   }
 
-  public boolean matchesExactly() {     
-    return missingParts.isEmpty() && 
-           !containsUnmatchedSegments();
-  }
-  
-  public boolean containsUnmatchedSegments() {
-    return segments.stream().anyMatch(s->!s.matched());
+  public void complete() {
+    
+    for(SegmentAnalysis segmentAnalysis : segments) {
+      
+       if(segmentAnalysis.matched())
+         matchedLength += segmentAnalysis.segment().length();
+       else
+         unmatchedLength += segmentAnalysis.segment().length();       
+    }
+    
   }
 
 } 

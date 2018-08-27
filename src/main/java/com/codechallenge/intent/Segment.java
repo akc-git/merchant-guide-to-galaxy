@@ -115,4 +115,8 @@ public class Segment {
     return this;
   }
 
+  public int length() {
+    return to - from + 1;
+  }
+
 }
