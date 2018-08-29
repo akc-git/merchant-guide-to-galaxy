@@ -35,7 +35,7 @@ public class QueryConversionToCreditsHandler implements IntentHandler {
       }
       
       FactorOfConversion foc = Unit.getFactorOfConversion(fromUnit, toUnit);
-      int qtyToUnit = qtyFromUnit.value() * foc.numerator() / foc.denominator();
+      float qtyToUnit = qtyFromUnit.value() * foc.numerator() / foc.denominator();
         
       request.response().inform(
           String.format("%s %s is %d %s",qtyFromUnit.toString(),fromUnit.symbol(),
