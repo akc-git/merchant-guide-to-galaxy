@@ -4,16 +4,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
-import junitparams.JUnitParamsRunner;
-
-@RunWith(JUnitParamsRunner.class)
 class TermTypeTests {
 
   @Test
   void ShouldEnsureAllMatchersImplemented(){
     boolean allMatchersImplemented = true;
+    TermType.scanMatchers();
+    
     for(TermType.Name name : TermType.Name.values() ) {
       try {
         if(TermType.getMatcher(name)==null) {

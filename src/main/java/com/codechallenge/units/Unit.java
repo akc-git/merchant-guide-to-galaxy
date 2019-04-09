@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javafx.util.Pair;
 
@@ -28,6 +29,18 @@ public class Unit {
   public boolean convertibleTo(Unit toUnit) {
     return Optional.ofNullable(getFactorOfConversion(this,toUnit))
                    .isPresent();
+  }
+  
+  public List<Unit> convertibleUnits() {
+    
+    return focs.entrySet().stream()
+        .filter(e->{
+          return e.getKey().getKey().equals(this) ||
+                 e.getKey().getValue().equals(this); })
+        .map(e -> {
+          return e.getKey().getKey().equals(this) ? this : 
+                 e.getKey().getValue(); })        
+        .collect(Collectors.toList());
   }
   
   @Override
@@ -78,7 +91,27 @@ public class Unit {
       throw new IllegalArgumentException();
     
     if(fromUnit.equals(toUnit))
-      return FactorOfConversion.UNITY;    
+      return FactorOfConversion.UNITY;
+    
+    return Optional.ofNullable(findFoc(fromUnit,toUnit))
+                   .orElseGet(()-> findFocRecursive(fromUnit,toUnit));    
+  }
+  
+  private static FactorOfConversion findFocRecursive(Unit fromUnit, Unit toUnit) {
+    FactorOfConversion foc = null;
+    List<Unit> units = fromUnit.convertibleUnits();
+    
+    for(Unit unit : units) {
+      foc = Optional.ofNullable(findFocRecursive(unit,toUnit))
+                    .map(f -> findFoc(fromUnit,unit).multiply(f))
+                    .orElse(null);
+      if(foc!=null)
+        return foc;
+    }
+    return foc;
+  }
+  
+  private static FactorOfConversion findFoc(Unit fromUnit, Unit toUnit) {
     
     Pair<Unit, Unit> forPair = new Pair<>(fromUnit,toUnit);
     FactorOfConversion factor = focs.get(forPair);
@@ -92,9 +125,9 @@ public class Unit {
     if(foundPair!=null)
       return foundPair.getKey()==forPair.getKey() ? factor : factor.inverse();  
     else
-      return null;    
+      return null;
   }
-  
+
   private static String normalize(String symbol) {
       return symbol.trim().toLowerCase();
   }
